@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@material-ui/core";
 // icon
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -8,7 +8,8 @@ import TelegramIcon from "@material-ui/icons/Telegram";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 // css
 import "./Header.css";
-import { useState } from "react";
+// truncate package
+import Truncate from "react-truncate";
 
 function Post({ userName, userImage, postText, postImage }) {
   const [Input, setInput] = useState("");
@@ -18,7 +19,7 @@ function Post({ userName, userImage, postText, postImage }) {
   };
   return (
     <div
-      className="d-flex flex-column mt-2 border"
+      className="d-flex flex-column mt-2 border mb-4"
       style={{ backgroundColor: "white" }}
     >
       <div className="row d-flex flex-row my-2 mx-0">
@@ -36,7 +37,10 @@ function Post({ userName, userImage, postText, postImage }) {
         </div>
       </div>
       {/* post image  */}
-      <img src={postImage} className="img-fluid" alt="" />
+      <div className="h-auto d-flex justify-content-center">
+        <img src={postImage} className="img-fluid" alt="" />
+      </div>
+
       {/* icons  */}
       <div className="row d-flex flex-row m-0 mt-2">
         <div className="col-1">
@@ -59,22 +63,32 @@ function Post({ userName, userImage, postText, postImage }) {
         <div className="col d-flex flex-row ">
           <p>
             <b>{userName}ashfaq</b>
-            <span className="pl-2">{postText}</span>
+            <Truncate
+              lines={3}
+              className="pl-2"
+              ellipsis={
+                <span>
+                  ... <a href="/link/to/article">Read more</a>
+                </span>
+              }
+            >
+              {postText}
+            </Truncate>
           </p>
         </div>
       </div>
       {/* comment section 🛺 🦕 */}
-      <div className="row m-0">
-        <div className="col-11 m-0 p-0">
+      <div className="row m-0 d-flex flex-row">
+        <div className="col-xl-11 col-lg-11 col-md-10 col-sm-9 col-10 m-0">
           <input
             type="text"
-            className="form-control border-0"
+            className="form-control border-0 m-0 px-2"
             value={Input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Add a comment"
           />
         </div>
-        <div className="col-1 px-3 mt-1 d-flex justify-content-end align-items-center">
+        <div className="col-xl-1 col-lg-1 col-md-2 col-sm-3 col-2 mt-1 d-flex justify-content-end align-items-center">
           <p
             style={{ color: Input === "" ? "#b3dffc" : "#5DADE2" }}
             onClick={postComment}

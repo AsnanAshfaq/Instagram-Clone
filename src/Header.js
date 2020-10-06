@@ -4,7 +4,7 @@ import { Avatar } from "@material-ui/core";
 // icons
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
-import TelegramIcon from '@material-ui/icons/Telegram';
+import TelegramIcon from "@material-ui/icons/Telegram";
 import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteSharpIcon from "@material-ui/icons/FavoriteSharp";
 // css
@@ -35,22 +35,22 @@ function Header() {
           {/* side options 🎃🦘 */}
           <div className="col-xs-2 col-lg-2 col-md-4 col-sm-4 col-xs-4 ml-4 m-0 p-0  d-flex justify-content-end align-items-end">
             <div className="row d-flex flex-row justify-content-between m-0">
-              <div className="col-2 px-2">
+              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <HomeIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
-              <div className="col-2 px-2">
+              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <TelegramIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
-              <div className="col-2 px-2">
+              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <ExploreIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
-              <div className="col-2 px-2">
+              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <FavoriteSharpIcon
                   style={{ fontSize: 27 }}
                   className="pointer"
                 />
               </div>
-              <div className="col-2 px-2 pb-1">
+              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2 pb-1">
                 <Avatar src={picture} className="pointer" />
               </div>
             </div>
