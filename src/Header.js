@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import picture from "./ME.jpg";
 import { Avatar } from "@material-ui/core";
 // icons
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
+import PublishIcon from "@material-ui/icons/Publish";
 import TelegramIcon from "@material-ui/icons/Telegram";
-import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteSharpIcon from "@material-ui/icons/FavoriteSharp";
 // css
 import "./Header.css";
+// upload modal
+import HeaderUploadModal from "./Header_Upload_Modal";
 
 function Header() {
+  const [Modal, setModal] = useState(false);
+
+  const openModal = (event) => {
+    event.preventDefault();
+    setModal(true);
+  };
   return (
     <div>
+      {/* uploading post modal  🤝*/}
+      {Modal === true && <HeaderUploadModal open={true} setModal={setModal} />}
       <div className="container-fluid border-bottom ">
         <div className="row">
           {/* blank space  */}
@@ -35,23 +45,30 @@ function Header() {
           {/* side options 🎃🦘 */}
           <div className="col-xs-2 col-lg-2 col-md-4 col-sm-4 col-xs-4 ml-4 m-0 p-0  d-flex justify-content-end align-items-end">
             <div className="row d-flex flex-row justify-content-between m-0">
+              {/* Home Screen */}
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <HomeIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <TelegramIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
-              <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
-                <ExploreIcon style={{ fontSize: 27 }} className="pointer" />
+              {/* modal for uploading posts  */}
+              <div
+                className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2"
+                onClick={openModal}
+              >
+                <PublishIcon style={{ fontSize: 27 }} className="pointer" />
               </div>
+              {/* all the likes of user's post  */}
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2">
                 <FavoriteSharpIcon
                   style={{ fontSize: 27 }}
                   className="pointer"
                 />
               </div>
+              {/* user's profile image  */}
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2 pb-1">
-                <Avatar src={picture} className="pointer" />
+                <Avatar src={picture} className="pointer " />
               </div>
             </div>
           </div>

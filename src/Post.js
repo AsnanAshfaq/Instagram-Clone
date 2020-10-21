@@ -23,7 +23,7 @@ function Post({ userName, userImage, postText, postImage }) {
       style={{ backgroundColor: "white" }}
     >
       <div className="row d-flex flex-row my-2 mx-0">
-        {/* user image  */}
+        {/* user image 🍔 */}
         <div className="col-11 d-flex flex-row">
           <Avatar src={userImage} />
           <div className="px-2 pt-1">
@@ -36,12 +36,12 @@ function Post({ userName, userImage, postText, postImage }) {
           <MoreHorizIcon className="pointer" />
         </div>
       </div>
-      {/* post image  */}
+      {/* post image 🔺 🥪 */}
       <div className="h-auto d-flex justify-content-center">
         <img src={postImage} className="img-fluid" alt="" />
       </div>
 
-      {/* icons  */}
+      {/* icons 🏗️ */}
       <div className="row d-flex flex-row m-0 mt-2">
         <div className="col-1">
           <FavoriteBorderIcon style={{ fontSize: 27 }} className="pointer" />
@@ -63,17 +63,11 @@ function Post({ userName, userImage, postText, postImage }) {
         <div className="col d-flex flex-row ">
           <p>
             <b>{userName}ashfaq</b>
-            <Truncate
-              lines={3}
-              className="pl-2"
-              ellipsis={
-                <span>
-                  ... <a href="/link/to/article">Read more</a>
-                </span>
-              }
-            >
-              {postText}
-            </Truncate>
+            <span className="pl-3">
+              {postText.length > 45
+                ? postText.substring(0, 50) + "..."
+                : postText}
+            </span>
           </p>
         </div>
       </div>
@@ -88,13 +82,14 @@ function Post({ userName, userImage, postText, postImage }) {
             placeholder="Add a comment"
           />
         </div>
-        <div className="col-xl-1 col-lg-1 col-md-2 col-sm-3 col-2 mt-1 d-flex justify-content-end align-items-center">
-          <p
+        <div className="col-xl-1 col-lg-1 col-md-2 col-sm-3 col-2 mt-1 mb-2 d-flex justify-content-end align-items-center">
+          <button
+            className="btn m-0 pt-0 px-1"
             style={{ color: Input === "" ? "#b3dffc" : "#5DADE2" }}
             onClick={postComment}
           >
             <b>Post</b>
-          </p>
+          </button>
         </div>
       </div>
     </div>

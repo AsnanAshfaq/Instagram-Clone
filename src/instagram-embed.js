@@ -3,7 +3,7 @@ import InstagramEmbed from "react-instagram-embed";
 
 function InstaEmbed() {
   return (
-    <div>
+    <div className="my-2">
       <InstagramEmbed
         url="https://instagr.am/p/Zw9o4/"
         maxWidth={320}
