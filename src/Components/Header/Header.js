@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import picture from "./ME.jpg";
+import { Link } from "react-router-dom";
+import picture from "../../ME.jpg";
 import { Avatar } from "@material-ui/core";
 // icons
 import HomeIcon from "@material-ui/icons/Home";
@@ -29,9 +30,11 @@ function Header() {
           <div className="col-xs-2 col-lg-2 col-md-1"></div>
           {/* logo  🧑‍🚀*/}
           <div className="col-xs-2 col-lg-2 col-md-2 col-sm-3 col-xs-4 m-0 p-0  px-2 d-flex align-items-center">
-            <h1 style={{ fontFamily: " Cookie" }} className="w-auto ">
-              Instagram
-            </h1>
+            <Link to="/" style={{textDecoration:'none'}}>
+              <h1 style={{ fontFamily: " Cookie",color:'black'}} className="w-auto ">
+                Instagram
+              </h1>
+            </Link>
           </div>
           {/* search box  🏟️ 🦕*/}
           <div className="col-xs-4 col-lg-4 col-md-4 col-sm-4 col-xs-4  m-0 p-0 input-group d-flex justify-content-center align-items-center">
@@ -68,7 +71,9 @@ function Header() {
               </div>
               {/* user's profile image  */}
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2 pb-1">
-                <Avatar src={picture} className="pointer " />
+                <Link to="/signup">
+                  <Avatar src={picture} className="pointer " />
+                </Link>
               </div>
             </div>
           </div>

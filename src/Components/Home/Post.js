@@ -7,7 +7,7 @@ import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 // css
-import "./Header.css";
+import "../Header/Header.css";
 // truncate package
 import Truncate from "react-truncate";
 

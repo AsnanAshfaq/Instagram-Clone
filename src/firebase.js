@@ -12,3 +12,12 @@ const firebaseConfig = {
 
 // initializa app
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+const db = firebaseApp.firestore();
+
+const auth = firebase.auth();
+
+// Create a root reference
+const storage = firebase.storage();
+
+export {db , auth , storage}
