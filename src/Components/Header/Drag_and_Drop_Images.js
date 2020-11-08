@@ -58,7 +58,7 @@ const Previews = ({ setImage }) => {
 
   return (
     <section className="container">
-      <div {...getRootProps()} style={{ marginTop:5,height: 150, width: "100%" }}>
+      <div {...getRootProps()} style={{height: 150, width: "100%" }}>
         <input {...getInputProps()} />
         <p
           style={{ width: "inherit", height: "inherit" }}
