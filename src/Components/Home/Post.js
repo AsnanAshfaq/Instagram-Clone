@@ -37,7 +37,7 @@ function Post({ userName, userImage, postText, postImage }) {
         </div>
       </div>
       {/* post image 🔺 🥪 */}
-      <div className="h-auto d-flex justify-content-center">
+      <div className="h-auto d-flex justify-content-center" style={{maxHeight:800}}>
         <img src={postImage} className="img-fluid" alt="" />
       </div>
 

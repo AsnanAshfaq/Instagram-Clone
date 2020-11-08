@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
@@ -6,39 +6,30 @@ import FormControl from "react-bootstrap/FormControl";
 import { useDropzone } from "react-dropzone";
 // firebase storage
 import { storage } from "../../firebase";
-// for previewing images in the modal 
+// for previewing images in the modal
 import Previews from "./Drag_and_Drop_Images";
 
 function HeaderUploadModal({ open, setModal }) {
   const [show, setShow] = useState(open);
-  const [Error, setError] = useState('')
-  
+  const [Error, setError] = useState("");
+  const [PostImage, setPostImage] = useState({});
 
-  // image reference in the drag and drop container 
-  const ImageRef = useRef('')
   // modal handling 👺
   const handleClose = () => {
     setModal(false);
     setShow(false);
   };
 
+  const UploadImage =  () => {
 
-  const UploadImage = () => {
-    // check if the image reference has some values or not 
-    if(ImageRef.current == ""){
-      // show the error that no image is set 💡
-      setError("No Image to be Uploaded")
+    if (Object.keys(PostImage).length > 0) {
+
+      const uploadedImage = storage
+        .ref(`images/${PostImage.name}`)
+        .put(PostImage.file)
+        .then(() => console.log("uplading file "));
     }
-    else{
-      console.log(" image  is set")
-    }
-    // const path = File.path;
-    // const uploadedImage = storage
-    //   .ref(`images/${path}`)
-    //   .put(File)
-    //   .then(() => console.log("uplading file "));
   };
-
 
   return (
     <>
@@ -64,8 +55,9 @@ function HeaderUploadModal({ open, setModal }) {
               aria-describedby="basic-addon2"
             />
             {/* drag and drop image 🔥*/}
-            
-            <Previews ref={ImageRef}/>
+            <div className="h-25">
+              <Previews setImage={setPostImage} />
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
