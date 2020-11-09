@@ -6,13 +6,12 @@ import FormControl from "react-bootstrap/FormControl";
 import { storage, db } from "../../firebase";
 // for previewing images in the modal
 import Previews from "./Drag_and_Drop_Images";
-
+// global state
 import { Context } from "../../Store/StateProvider";
 
 function HeaderUploadModal({ open, setModal }) {
-
-  // global state 
-  const [state,dispatch] =  Context()
+  // global state
+  const [{ user }, dispatch] = Context();
   // local states 🥘
   const [show, setShow] = useState(open);
   const [Error, setError] = useState("");
@@ -26,17 +25,22 @@ function HeaderUploadModal({ open, setModal }) {
   };
 
   const UploadPost = () => {
+    // check if the user is not signed in show the error message
 
-    if (Object.keys(PostImage).length > 0) {
-      // check if we have some PostText 👍
-      if (PostText.length > 0) {
+    if (user.length > 0) {
+      if (Object.keys(PostImage).length > 0) {
+        // check if we have some PostText 👍
+        if (PostText.length > 0) {
+        }
+        const uploadedImage = storage
+          .ref(`images/${PostImage.name}`)
+          .put(PostImage.file)
+          .then(() => console.log("uplading file "));
+      } else {
+        setError("Please Upload Image");
       }
-      const uploadedImage = storage
-        .ref(`images/${PostImage.name}`)
-        .put(PostImage.file)
-        .then(() => console.log("uplading file "));
     } else {
-      setError("Please Upload Image");
+      setError("Please Sign in first ");
     }
   };
 

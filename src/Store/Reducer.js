@@ -1,18 +1,17 @@
 export const InitialState = {
-    user : {},
-}
+  user: "",
+};
 
-const Reducer = (state,action) => {
+const Reducer = (state, action) => {
+  switch (action.type) {
+    // adding user
+    case "SET_USER":
+      return { ...state, user: action.user };
+    case "REMOVE_USER":
+      return { ...state, user: "" };
+    default:
+      return state;
+  }
+};
 
-    switch(action.type){
-        // adding user 
-        case 'ADD_USER':
-            return {...state,
-                postCount : state.postCount+1}
-
-        default:
-            return state
-    }
-}
-
-export default Reducer
+export default Reducer;

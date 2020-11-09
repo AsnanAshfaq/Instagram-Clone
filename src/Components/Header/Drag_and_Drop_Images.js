@@ -2,8 +2,6 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const Previews = ({ setImage }) => {
-  // const [state, setstate] = useState(initialState)
-
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
@@ -49,7 +47,7 @@ const Previews = ({ setImage }) => {
       setImage({
         blob: file.preview,
         name: file.name,
-        file:file
+        file: file,
       });
       // Make sure to revoke the data uris to avoid memory leaks
       // URL.revokeObjectURL(file.preview);
@@ -58,7 +56,7 @@ const Previews = ({ setImage }) => {
 
   return (
     <section className="container">
-      <div {...getRootProps()} style={{height: 150, width: "100%" }}>
+      <div {...getRootProps()} style={{ height: 150, width: "100%" }}>
         <input {...getInputProps()} />
         <p
           style={{ width: "inherit", height: "inherit" }}
