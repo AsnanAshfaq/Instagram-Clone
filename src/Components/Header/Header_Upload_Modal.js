@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
-// drop zone
-import { useDropzone } from "react-dropzone";
 // firebase storage
 import { storage, db } from "../../firebase";
 // for previewing images in the modal
 import Previews from "./Drag_and_Drop_Images";
 
+import { Context } from "../../Store/StateProvider";
+
 function HeaderUploadModal({ open, setModal }) {
+
+  // global state 
+  const [state,dispatch] =  Context()
+  // local states 🥘
   const [show, setShow] = useState(open);
   const [Error, setError] = useState("");
   const [PostImage, setPostImage] = useState({});
@@ -22,25 +26,23 @@ function HeaderUploadModal({ open, setModal }) {
   };
 
   const UploadPost = () => {
+
     if (Object.keys(PostImage).length > 0) {
-
       // check if we have some PostText 👍
-      if(PostText.length > 0){
-
+      if (PostText.length > 0) {
       }
       const uploadedImage = storage
         .ref(`images/${PostImage.name}`)
         .put(PostImage.file)
         .then(() => console.log("uplading file "));
-
     } else {
       setError("Please Upload Image");
     }
   };
 
   useEffect(() => {
-    setError("")
-  }, [PostImage])
+    setError("");
+  }, [PostImage]);
 
   return (
     <>
