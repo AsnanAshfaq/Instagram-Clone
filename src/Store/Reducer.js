@@ -1,5 +1,5 @@
 export const InitialState = {
-  user: "",
+  user: {},
 };
 
 const Reducer = (state, action) => {
@@ -8,7 +8,7 @@ const Reducer = (state, action) => {
     case "SET_USER":
       return { ...state, user: action.user };
     case "REMOVE_USER":
-      return { ...state, user: "" };
+      return { ...state, user: {} };
     default:
       return state;
   }

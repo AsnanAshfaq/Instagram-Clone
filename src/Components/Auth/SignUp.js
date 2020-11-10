@@ -6,11 +6,11 @@ import { db, auth } from "../../firebase";
 // loader
 import Loader from "react-loader-spinner";
 // context api
-// import { useStateValue } from "../StateProvider";
+import { Context } from "../../Store/StateProvider";
 
 function SignUp() {
   // global state
-  // const [, dispatch] = useStateValue();
+  const [state, dispatch] = Context();
   // local states
   const [Name, setName] = useState("");
   const [Username, setUsername] = useState("");
@@ -41,32 +41,45 @@ function SignUp() {
     else if (Password != ConfirmPassword) {
       alert("Password's do not match");
     } else {
-      //   // create user account
+      //create user account
       auth
         .createUserWithEmailAndPassword(Email, Password)
         .then((user) => {
           if (user) {
-            //         // add user in the data base with the uid  🍔
-            db.collection("users").doc().set({
-              Name: Name,
-              UserName: Username,
-              imageURL: "",
-              uid: user.user.uid,
-            });
+            //add user in the data base with the uid  🍔
+            console.log({ user });
+            db.collection("users")
+              .doc(user.user.uid)
+              .set({
+                Name: Name,
+                UserName: Username,
+                imageURL: "",
+                uid: user.user.uid,
+              })
+              .then(() => {
+                console.log("adding document in firebase");
+                //set the user in the context api 💯
+                dispatch({
+                  type: "SET_USER",
+                  user: {
+                    Name: Name,
+                    UserName: Username,
+                    imageURL: "",
+                    uid: user.user.uid,
+                  },
+                });
+                // make loader disappear
+                setIsLoading(false);
+                History.replace("/");
+              })
+              .catch((error) => {
+                console.log(error);
+                // make loader disappear
+                setIsLoading(false);
+                History.replace("/signup");
+              });
 
-            //         // // set the user in the context api 💯
-            //         dispatch({
-            //           type: "ADD_USER",
-            //           user: {
-            //             Name: Name,
-            //             UserName: Username,
-            //             imageURL: "",
-            //             uid: user.user.uid,
-            //           },
-            //         });
-            //         // make loader disappear
-            setIsLoading(false);
-            History.replace("/");
+            
           }
         })
         .catch((err) => {

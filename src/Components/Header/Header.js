@@ -94,7 +94,7 @@ function Header() {
               </div>
               {/* user's profile image  */}
               <div className="col-xs-2 col-lg-2 col-md-2 col-sm-2 col-2 px-2 pb-1 rounded-circle">
-                {user.length > 0 ? (
+                {Object.keys(user).length > 0 ? (
                   /* if the user is signed in*/
                   <div>
                     {/* tool tip  */}
@@ -103,7 +103,19 @@ function Header() {
                       data-for="global"
                       data-event="click focus"
                     >
-                      <Avatar src={picture} className="pointer " />
+                      {/* if user has not set image then show the dummy image  */}
+                      {user.imageURL == "" ? (
+                        <Avatar
+                          src={
+                            "https://www.freeiconspng.com/thumbs/person-icon/msn-people-person-profile-user-icon--icon-search-engine-11.png"
+                          }
+                          className="pointer "
+                        />
+                      ) : (
+                        {
+                          /* else show the users image  */
+                        }(<Avatar src={user.imageURL} className="pointer " />)
+                      )}
                     </a>
                     <ReactTooltip
                       place="bottom"

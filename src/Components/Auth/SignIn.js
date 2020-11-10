@@ -31,7 +31,9 @@ function SignIn() {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert("Can't Sign In with given Credentials. Check your Email and Password and Try Again :)");
+        alert(
+          "Can't Sign In with given Credentials. Check your Email and Password and Try Again :)"
+        );
       });
   };
   return (

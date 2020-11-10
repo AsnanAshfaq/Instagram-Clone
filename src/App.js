@@ -5,7 +5,7 @@ import Home from "./Components/Home/Home";
 
 import SignIn from "./Components/Auth/SignIn";
 import SignUp from "./Components/Auth/SignUp";
-import { auth } from "./firebase";
+import { db, auth } from "./firebase";
 // global context
 import { Context } from "./Store/StateProvider";
 
@@ -16,14 +16,41 @@ function App() {
     // get to know if the user is siged in or not
     auth.onAuthStateChanged((User) => {
       if (Object.keys(User).length > 0) {
-        dispatch({
-          type: "SET_USER",
-          user: User.uid,
-        });
+        // fetch the data from the user database relted to the user id
+        const docRef = db.collection("users").doc(User.uid);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              const data = doc.data();
+              // setting globale state 😄
+              dispatch({
+                type: "SET_USER",
+                user: {
+                  Name: data.Name,
+                  UserName: data.Username,
+                  imageURL: data.imageURL,
+                  uid: data.uid,
+                },
+              });
+            } else {
+              // doc.data() will be undefined in this case
+              dispatch({
+                type: "SET_USER",
+                user: {},
+              });
+            }
+          })
+          .catch(function (error) {
+            dispatch({
+              type: "SET_USER",
+              user: {},
+            });
+          });
       } else {
         dispatch({
           type: "SET_USER",
-          user: User.uid,
+          user: {},
         });
       }
     });

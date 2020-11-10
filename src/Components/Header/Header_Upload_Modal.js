@@ -27,7 +27,7 @@ function HeaderUploadModal({ open, setModal }) {
   const UploadPost = () => {
     // check if the user is not signed in show the error message
 
-    if (user.length > 0) {
+    if (Object.keys(user).length > 0) {
       if (Object.keys(PostImage).length > 0) {
         // check if we have some PostText 👍
         if (PostText.length > 0) {
