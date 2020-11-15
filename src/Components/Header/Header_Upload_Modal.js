@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
+// progress bar
+import ProgressBar from "react-bootstrap/ProgressBar";
 // firebase storage
 import { storage, db } from "../../firebase";
+import firebase from "firebase";
 // for previewing images in the modal
 import Previews from "./Drag_and_Drop_Images";
 // global state
@@ -15,6 +18,7 @@ function HeaderUploadModal({ open, setModal }) {
   // local states 🥘
   const [show, setShow] = useState(open);
   const [Error, setError] = useState("");
+  const [Progress, setProgress] = useState(-1);
   const [PostImage, setPostImage] = useState({});
   const [PostText, setPostText] = useState("");
 
@@ -29,13 +33,50 @@ function HeaderUploadModal({ open, setModal }) {
 
     if (Object.keys(user).length > 0) {
       if (Object.keys(PostImage).length > 0) {
-        // check if we have some PostText 👍
-        if (PostText.length > 0) {
-        }
         const uploadedImage = storage
           .ref(`images/${PostImage.name}`)
-          .put(PostImage.file)
-          .then(() => console.log("uplading file "));
+          .put(PostImage.file);
+        uploadedImage.on(
+          "state_changed",
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = Number.parseInt(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            setProgress(progress);
+          },
+          (error) => {
+            setError("Error while posting");
+          },
+          () => {
+            // get the download URL:
+            const downloadURL = "";
+            uploadedImage.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                downloadURL = downloadURL;
+              });
+            // data format for a document in firebase cloud store
+            const PostData = {
+              // check if we have some PostText 👍
+              postText: PostText.length > 0 ? PostText : "",
+              likedBy: [],
+              imagePath: PostImage.name,
+              imageURL: downloadURL,
+              timeStamp: firebase.firestore.Timestamp.fromDate(new Date()),
+              uid: user.uid,
+            };
+
+            // add the data in firebase cloud store
+            const PostRef = db.collection("posts").doc();
+            PostRef.set(PostData).then(() => {
+              setError("Posted");
+              // close the modal
+              handleClose();
+            });
+          }
+        );
       } else {
         setError("Please Upload Image");
       }
@@ -73,12 +114,19 @@ function HeaderUploadModal({ open, setModal }) {
               value={PostText}
               onChange={(e) => setPostText(e.target.value)}
             />
+
             {/* drag and drop image 🔥*/}
             <div className="h-25">
               <Previews setImage={setPostImage} />
             </div>
           </div>
         </Modal.Body>
+        <div className="container-fluid">
+          {/* progress bar  */}
+          {Progress > 0 && (
+            <ProgressBar now={Progress} label={`${Progress}%`} />
+          )}
+        </div>
         <Modal.Footer>
           {/* showing error  */}
           {Error.length > 0 && (

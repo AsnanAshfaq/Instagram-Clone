@@ -10,12 +10,22 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import "../Header/Header.css";
 // truncate package
 import Truncate from "react-truncate";
+// context
+import { Context } from "../../Store/StateProvider";
 
 function Post({ userName, userImage, postText, postImage }) {
   const [Input, setInput] = useState("");
 
+  // global state
+  const [{ user }, dispatch] = Context();
+
   const postComment = (e) => {
-    // post the comment of the respective post
+    // first check if the user is signed in or not
+    if (Object.keys(user).length > 0) {
+      // post the comment of the respective post
+    } else {
+      alert("Please Sign in first to Comment");
+    }
   };
   return (
     <div
@@ -25,10 +35,10 @@ function Post({ userName, userImage, postText, postImage }) {
       <div className="row d-flex flex-row my-2 mx-0">
         {/* user image 🍔 */}
         <div className="col-11 d-flex flex-row">
-          <Avatar src={userImage} />
+          {/* <Avatar src={userImage} /> */}
           <div className="px-2 pt-1">
             <p>
-              <b>{userName}</b>
+              {/* <b>{userName}</b> */}
             </p>
           </div>
         </div>
@@ -37,8 +47,11 @@ function Post({ userName, userImage, postText, postImage }) {
         </div>
       </div>
       {/* post image 🔺 🥪 */}
-      <div className="h-auto d-flex justify-content-center" style={{maxHeight:800}}>
-        <img src={postImage} className="img-fluid" alt="" />
+      <div
+        className="h-auto d-flex justify-content-center"
+        style={{ maxHeight: 800 }}
+      >
+        {/* <img src={postImage} className="img-fluid" alt="" /> */}
       </div>
 
       {/* icons 🏗️ */}
@@ -62,7 +75,7 @@ function Post({ userName, userImage, postText, postImage }) {
       <div className="row d-flex flex-row mx-0 mt-2">
         <div className="col d-flex flex-row ">
           <p>
-            <b>{userName}ashfaq</b>
+            {/* <b>{userName}ashfaq</b> */}
             <span className="pl-3">
               {postText.length > 45
                 ? postText.substring(0, 50) + "..."
@@ -87,6 +100,7 @@ function Post({ userName, userImage, postText, postImage }) {
             className="btn m-0 pt-0 px-1"
             style={{ color: Input === "" ? "#b3dffc" : "#5DADE2" }}
             onClick={postComment}
+            disabled={!Input}
           >
             <b>Post</b>
           </button>
