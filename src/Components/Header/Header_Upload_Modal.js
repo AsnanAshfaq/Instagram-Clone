@@ -56,25 +56,26 @@ function HeaderUploadModal({ open, setModal }) {
               .getDownloadURL()
               .then(function (downloadURL) {
                 downloadURL = downloadURL;
-              });
-            // data format for a document in firebase cloud store
-            const PostData = {
-              // check if we have some PostText 👍
-              postText: PostText.length > 0 ? PostText : "",
-              likedBy: [],
-              imagePath: PostImage.name,
-              imageURL: downloadURL,
-              timeStamp: firebase.firestore.Timestamp.fromDate(new Date()),
-              uid: user.uid,
-            };
+                // data format for a document in firebase cloud store
+                const PostData = {
+                  // check if we have some PostText 👍
+                  postText: PostText.length > 0 ? PostText : "",
+                  likedBy: [],
+                  imagePath: PostImage.name,
+                  imageURL: downloadURL,
+                  timeStamp: firebase.firestore.Timestamp.fromDate(new Date()),
+                  uid: user.uid,
+                };
 
-            // add the data in firebase cloud store
-            const PostRef = db.collection("posts").doc();
-            PostRef.set(PostData).then(() => {
-              setError("Posted");
-              // close the modal
-              handleClose();
-            });
+                // add the data in firebase cloud store
+                const PostRef = db.collection("posts").doc();
+                PostRef.set(PostData).then(() => {
+                  setError("Posted");
+                  // close the modal
+                  handleClose();
+                });
+              })
+              .catch(error => setError("Error while posting"));
           }
         );
       } else {

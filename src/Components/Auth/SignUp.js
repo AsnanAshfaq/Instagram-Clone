@@ -54,6 +54,7 @@ function SignUp() {
                 Name: Name,
                 UserName: Username,
                 imageURL: "",
+                imagePath: "",
                 uid: user.user.uid,
               })
               .then(() => {
@@ -78,8 +79,6 @@ function SignUp() {
                 setIsLoading(false);
                 History.replace("/signup");
               });
-
-            
           }
         })
         .catch((err) => {

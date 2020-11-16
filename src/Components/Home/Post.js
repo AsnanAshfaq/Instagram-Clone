@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-ui/core";
 // icon
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -13,12 +13,17 @@ import Truncate from "react-truncate";
 // context
 import { Context } from "../../Store/StateProvider";
 
-function Post({ userName, userImage, postText, postImage }) {
+function Post({ postData }) {
+  
   const [Input, setInput] = useState("");
 
   // global state
   const [{ user }, dispatch] = Context();
 
+
+  useEffect(() => {
+   
+  }, [])
   const postComment = (e) => {
     // first check if the user is signed in or not
     if (Object.keys(user).length > 0) {
@@ -51,7 +56,7 @@ function Post({ userName, userImage, postText, postImage }) {
         className="h-auto d-flex justify-content-center"
         style={{ maxHeight: 800 }}
       >
-        {/* <img src={postImage} className="img-fluid" alt="" /> */}
+        <img src={postData.imageURL} className="img-fluid" alt="" />
       </div>
 
       {/* icons 🏗️ */}
@@ -77,9 +82,9 @@ function Post({ userName, userImage, postText, postImage }) {
           <p>
             {/* <b>{userName}ashfaq</b> */}
             <span className="pl-3">
-              {postText.length > 45
-                ? postText.substring(0, 50) + "..."
-                : postText}
+              {postData.postText.length > 45
+                ? postData.postText.substring(0, 50) + "..."
+                : postData.postText}
             </span>
           </p>
         </div>

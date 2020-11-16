@@ -42,6 +42,7 @@ function App() {
             }
           })
           .catch(function (error) {
+            alert("Getting error while authenticating");
             dispatch({
               type: "SET_USER",
               user: {},
