@@ -12,18 +12,21 @@ import "../Header/Header.css";
 import Truncate from "react-truncate";
 // context
 import { Context } from "../../Store/StateProvider";
+// spinner
+import Loader from "react-loader-spinner";
+// lazy loading images
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function Post({ postData }) {
-  
+function Post({ postData, userInfo }) {
   const [Input, setInput] = useState("");
+  const [Loading, setLoading] = useState(true);
 
   // global state
   const [{ user }, dispatch] = Context();
 
-
   useEffect(() => {
-   
-  }, [])
+    console.log(userInfo);
+  }, []);
   const postComment = (e) => {
     // first check if the user is signed in or not
     if (Object.keys(user).length > 0) {
@@ -42,9 +45,7 @@ function Post({ postData }) {
         <div className="col-11 d-flex flex-row">
           {/* <Avatar src={userImage} /> */}
           <div className="px-2 pt-1">
-            <p>
-              {/* <b>{userName}</b> */}
-            </p>
+            <p>{/* <b>{userName}</b> */}</p>
           </div>
         </div>
         <div className="col-1 p-0 m-0 d-flex justify-content-center align-items-center">
@@ -56,7 +57,17 @@ function Post({ postData }) {
         className="h-auto d-flex justify-content-center"
         style={{ maxHeight: 800 }}
       >
-        <img src={postData.imageURL} className="img-fluid" alt="" />
+        {/* <LazyLoadImage
+      alt="asd"
+      height={400}
+      src={postData.imageURL}// use normal <img> attributes as props
+      width={400} /> */}
+        <img
+          src={postData.imageURL}
+          className="img-fluid"
+          alt=""
+          onLoad={() => console.log("loaded")}
+        />
       </div>
 
       {/* icons 🏗️ */}
